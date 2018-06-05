@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "DropDownDelete";
+}
+
+<h1>DropDownDelete</h1>
+
+<form method="post">
+    <select name="cheese" >
+        @foreach(string cheese in ViewBag.cheeses.Keys)
+        {
+            <option value="@cheese">@cheese</option>
+        }
+    </select>
+    <input type="submit" value="Delete Cheese" />
+</form>

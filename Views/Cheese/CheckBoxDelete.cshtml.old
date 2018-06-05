@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+
+<h1>CheckBoxDelete</h1>
+
+@if (ViewBag.cheeses.Count == 0)
+{
+    <p>No cheeses to remove!</p>
+    <p><a asp-controller="Cheese" asp-action="Index">Return to Homepage</a></p>
+}
+
+@if (ViewBag.cheeses.Count > 0)
+{
+    <form method="post">
+        @foreach (string cheese in ViewBag.cheeses.Keys)
+        {
+            <label>@cheese</label><input type="checkbox" name="cheese" />
+        }
+        <input type="submit" value="Delete Cheese" />
+    </form>
+
+
+}
+
