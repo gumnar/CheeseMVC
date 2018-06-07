@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using CheeseMVC.Models.Cheese;
 using CheeseMVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -46,14 +43,17 @@ namespace CheeseMVC.Controllers
         [HttpGet]
         public IActionResult CheckBoxDelete()
         {
-            List<Cheese> model = CheeseData.GetAll();
+            DeleteCheesesViewModel model = new DeleteCheesesViewModel();
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult CheckBoxDelete(int[] cheeseIdsToDelete)
+        public IActionResult CheckBoxDelete(DeleteCheesesViewModel model)
         {
-            cheeseIdsToDelete.ToList().ForEach(id => CheeseData.Remove(id));
+            if(!ModelState.IsValid)
+                return View();
+
+            model.Delete();
             return Redirect("Index");
         }
 
@@ -70,48 +70,5 @@ namespace CheeseMVC.Controllers
             CheeseData.Remove(cheese);
             return Redirect("Index");
         }
-
-
-        // !--HANDLES THE USER ACCOUNTS ---!
-        /*
-        [HttpGet]
-        public IActionResult UserSignUp()
-        {
-            // Display user signup page
-        }
-
-        [HttpPost]
-        public IActionResult UserSignUp(User user)
-        {
-            // Create user object and add it to the list
-
-            // Add user object to the active session
-
-            return Redirect("Index");
-        }
-
-        [HttpGet]
-        public IActionResult UserSignIn()
-        {
-            // Display user sign in page
-        }
-
-        [HttpPost]
-        public IActionResult UserSignIn(User user)
-        {
-            // Add user from list to the active session
-
-            return Redirect("Index");
-        }
-
-        [HttpPost]
-        public IActionResult UserSignOut()
-        {
-            // Remove current user from the active session
-
-            return Redirect("Index");
-        }
-        */
-
     }
 }
